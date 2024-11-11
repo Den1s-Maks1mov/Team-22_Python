@@ -1,7 +1,7 @@
 import csv
 import json
 
-# функція запису даних у CSV файл
+# функція для запису даних у CSV файл
 def write_to_csv(filename, data):
     try:
         with open(filename, mode='w', newline='', encoding='utf-8') as csvfile:
@@ -17,7 +17,9 @@ def csv_to_json(csv_filename, json_filename):
         # зитування CSV файл
         with open(csv_filename, mode='r', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile, delimiter=';')
-            json_data = [row for row in reader]
+            data = list(reader)[0] 
+            student_name = data.pop("Name")
+            json_data = {student_name: data}
 
         # запис в JSON файл
         with open(json_filename, mode='w', encoding='utf-8') as jsonfile:
